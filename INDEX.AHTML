@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MATAJENTE - El Juego</title>
+    <style>
+        body { margin: 0; background: black; color: white; font-family: Arial, sans-serif; overflow: hidden; text-align: center; }
+        #game-container { position: relative; width: 100vw; height: 100vh; }
+        #enemy { position: absolute; width: 80px; height: 80px; background: red; border: 3px solid white; border-radius: 10px; cursor: pointer; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 12px; }
+        #score { position: absolute; top: 20px; left: 20px; font-size: 24px; z-index: 10; }
+        h1 { position: absolute; top: 10px; width: 100%; pointer-events: none; opacity: 0.5; }
+    </style>
+</head>
+<body>
+    <h1>MATAJENTE</h1>
+    <div id="score">Puntos: 0</div>
+    <div id="game-container">
+        <div id="enemy" onclick="hit()">¡DAME!</div>
+    </div>
+
+    <script>
+        let score = 0;
+        const enemy = document.getElementById('enemy');
+        const scoreDisplay = document.getElementById('score');
+
+        function moveEnemy() {
+            const x = Math.random() * (window.innerWidth - 80);
+            const y = Math.random() * (window.innerHeight - 80);
+            enemy.style.left = x + 'px';
+            enemy.style.top = y + 'px';
+        }
+
+        function hit() {
+            score += 10;
+            scoreDisplay.innerText = 'Puntos: ' + score;
+            moveEnemy();
+        }
+
+        // Mover al enemigo cada 1.5 segundos por si no lo tocas
+        setInterval(moveEnemy, 1500);
+        moveEnemy();
+    </script>
+</body>
+</html>
