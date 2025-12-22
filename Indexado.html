@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<body style="background:black; color:white; text-align:center; font-family:sans-serif; margin:0;">
+    <h1 style="font-size: 20px;">MATAJENTE</h1>
+    <p>Puntos: <span id="p">0</span></p>
+    <canvas id="g" width="300" height="400" style="border:4px solid white; background:#111; touch-action:none;"></canvas>
+    <script>
+        const c=document.getElementById('g'), x=c.getContext('2d'), p=document.getElementById('p');
+        let s=0, en={x:100,y:100};
+        function draw(){
+            x.fillStyle='#111'; x.fillRect(0,0,300,400);
+            x.fillStyle='red'; x.fillRect(en.x,en.y,40,40);
+        }
+        function hit(e){
+            e.preventDefault();
+            const rect=c.getBoundingClientRect();
+            const tx=(e.touches ? e.touches[0].clientX : e.clientX)-rect.left;
+            const ty=(e.touches ? e.touches[0].clientY : e.clientY)-rect.top;
+            if(tx>en.x && tx<en.x+40 && ty>en.y && ty<en.y+40){
+                s+=10; p.innerText=s; 
+                en={x:Math.random()*260, y:Math.random()*360};
+            }
+        }
+        c.addEventListener('touchstart', hit);
+        c.addEventListener('mousedown', hit);
+        setInterval(draw, 50);
+    </script>
+</body>
+</html>
